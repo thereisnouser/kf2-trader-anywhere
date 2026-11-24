@@ -18,26 +18,113 @@ You can also approach any enabled trader pod and interact with it normally. The 
 
 ## 📦 Installation
 
-### Dedicated server (Windows)
+These instructions are for a **Windows KF2 dedicated server that is already installed**. You do not need programming knowledge, the KF2 SDK, or any `.ini` configuration changes.
 
-1. Stop the KF2 server instances using the installation you want to modify.
-2. Download `TraderAnywhere-0.1.0.zip` from [GitHub Releases](https://github.com/thereisnouser/kf2-trader-anywhere/releases) (once the first binary release is available) and extract it.
-3. Double-click **install.cmd**, then enter your dedicated server folder (the folder containing `KFGame` and `Binaries`).
-4. Add the following to your server's Survival map URL, then start the server normally:
+### 1. Find your server folder
+
+If your server is currently running:
+
+1. Press **Ctrl + Shift + Esc** to open Task Manager.
+2. Open the **Details** tab, find `KFServer.exe`, right-click it and choose **Open file location**.
+3. File Explorer opens the `Binaries\Win64` folder. Go up two folders (click the up arrow twice). This is your server folder.
+4. Click the Explorer address bar and copy the full folder path.
+
+For example, your server folder may be `C:\KF2Server`:
 
 ```text
-?Mutator=TraderAnywhere.TA_Mutator
+C:\KF2Server\
+  KF2Server.bat
+  Binaries\
+    Win64\
+      KFServer.exe
+  KFGame\
+    BrewedPC\
+    Config\
 ```
 
-Already using mutators? Append `,TraderAnywhere.TA_Mutator` to the existing `?Mutator=` list instead.
+The location and launcher filename may differ. If the server is not running, open the folder where you installed the dedicated server with SteamCMD (the `force_install_dir` path), or use **Manage → Browse local files** for the dedicated server tool in Steam if installed through Steam.
 
-The installer copies the package, backs up a previous version if necessary, and verifies the installed file. It does not edit your launch script or restart your server. Your normal mod distribution setup must allow clients to receive the package.
+### 2. Install the mod
 
-### Manual installation
+1. Stop your server. If several servers share the same installation folder, stop all of them first.
+2. Open [GitHub Releases](https://github.com/thereisnouser/kf2-trader-anywhere/releases) and download **TraderAnywhere-0.1.0.zip** when the binary release is available. Do not download `Source code (zip)`.
+3. Right-click the downloaded ZIP, choose **Extract All**, then open the extracted folder.
+4. Double-click **install.cmd**. Paste your server folder path from step 1 and press Enter.
 
-Copy `TraderAnywhere.u` into `KFGame/BrewedPC/` inside the dedicated server folder and add the same mutator parameter above. To uninstall, remove the mutator from your launch configuration and restart the server.
+When you see `Installed:` or `Trader Anywhere is already installed`, the mod is in the correct folder. You do not need to copy files yourself or open the Config folder.
 
-Trader Anywhere is not officially whitelisted by Tripwire and is intended for modded/Unranked Survival servers. Standard mutator loading may disable Ranked progression.
+### 3. Start the server with the mod enabled
+
+Choose the option that matches how you want to launch your server.
+
+#### Option A — Quick test without editing files
+
+Use this if you simply want to try the mod on a single local dedicated server with the normal server configuration and no custom launch options.
+
+1. Open your server folder in File Explorer.
+2. Click the address bar, type `cmd`, and press Enter. A Command Prompt opens in that folder.
+3. Copy the entire line below, paste it into Command Prompt and press Enter:
+
+```bat
+.\Binaries\Win64\KFServer.exe "KF-Spillway?Game=KFGameContent.KFGameInfo_Survival?Mutator=TraderAnywhere.TA_Mutator"
+```
+
+This starts a Survival server on Spillway with Trader Anywhere enabled. Leave the server window open while playing. This is a basic test launcher, not a replacement for an existing custom setup: it does not include your custom ports, other mutators or special launch options.
+
+#### Option B — Keep your existing server settings
+
+If you already start your server by double-clicking a `.bat` or `.cmd` file, continue using that file. The standard Windows launcher is commonly named `KF2Server.bat` and is located in the server folder from step 1.
+
+1. Make a copy of your launcher file as a backup.
+2. Right-click the original launcher → **Edit** (on Windows 11, use **Show more options** if needed), or open Notepad and use **File → Open** to select the launcher. Choose **All files** if it is not visible.
+3. Find the line that starts `KFServer.exe` or `kfserver`. Find the map name in that line, such as `KF-BioticsLab` or `KF-Spillway`.
+4. Add the mod parameter to the map name and its existing options, before any space-separated flags such as `-Port`. Keep everything else unchanged. Use the examples below.
+
+**Example — no other mutators:**
+
+Before:
+
+```bat
+start .\Binaries\Win64\KFServer.exe KF-BioticsLab?Difficulty=2
+```
+
+After:
+
+```bat
+start .\Binaries\Win64\KFServer.exe KF-BioticsLab?Difficulty=2?Mutator=TraderAnywhere.TA_Mutator
+```
+
+**Example — another mutator is already enabled:**
+
+Before:
+
+```text
+KF-BioticsLab?Mutator=ExampleMod.ExampleMutator?Difficulty=2
+```
+
+After:
+
+```text
+KF-BioticsLab?Mutator=ExampleMod.ExampleMutator,TraderAnywhere.TA_Mutator?Difficulty=2
+```
+
+`ExampleMod.ExampleMutator` is just a placeholder for your existing mod. Do not add a second `?Mutator=` or remove the other mods. If the map and its options are inside quotation marks, keep the added text inside those same quotation marks.
+
+5. Press **Ctrl + S**, close Notepad and start your server using the same launcher as before.
+
+If your server uses a hosting panel or a server manager, use its startup arguments or mutator-list setting instead. The exact menu depends on the provider; do not replace the entire startup command. For a custom PowerShell launcher, edit the map URL that the script passes to the server. If you cannot find the startup settings, ask the server administrator or hosting provider.
+
+### 4. Check that it works
+
+Join your server, finish the first wave, then press **E** during trader time without standing next to a trader. The standard shop should open.
+
+If it does not, check that `TraderAnywhere.u` exists in your server's `KFGame\BrewedPC` folder and look for `TraderAnywhere: v0.1.0 runtime initialized` in the latest log under `KFGame\Logs`. Your server's existing mod distribution setup must allow connecting clients to receive the package.
+
+### Uninstall
+
+Stop the server, remove only `TraderAnywhere.TA_Mutator` from the launcher (remove the whole `?Mutator=` option if it was the only mutator), then restart the server. You can leave the unused package in place or delete `KFGame\BrewedPC\TraderAnywhere.u` once no server uses it.
+
+Trader Anywhere is intended for modded/Unranked Survival servers and is not officially whitelisted by Tripwire. Standard mutator loading may disable Ranked progression.
 
 ## 🛠️ Development
 
