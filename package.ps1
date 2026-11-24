@@ -16,6 +16,7 @@ $files = @(
     $binary
     (Join-Path $PSScriptRoot 'install.ps1')
     (Join-Path $PSScriptRoot 'install.cmd')
+    (Join-Path $PSScriptRoot 'LICENSE')
 )
 foreach ($file in $files) {
     if (-not (Test-Path -LiteralPath $file -PathType Leaf) -or (Get-Item -LiteralPath $file).Length -eq 0) {
@@ -31,7 +32,7 @@ try {
     $archive = [System.IO.Compression.ZipFile]::OpenRead($temporary)
     try {
         $actual = @($archive.Entries | ForEach-Object { $_.FullName } | Sort-Object)
-        $expected = @('install.cmd', 'install.ps1', 'TraderAnywhere.u' | Sort-Object)
+        $expected = @('install.cmd', 'install.ps1', 'TraderAnywhere.u', 'LICENSE' | Sort-Object)
         if (($actual -join '|') -cne ($expected -join '|')) {
             throw 'Unexpected release archive contents.'
         }

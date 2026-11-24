@@ -152,7 +152,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\package.ps1 `
   -SdkDir '<Killing Floor 2 SDK directory>'
 ```
 
-The script produces `dist/TraderAnywhere-0.1.0.zip` containing `TraderAnywhere.u`, `install.cmd`, and `install.ps1`, and checks that the archived package matches the compiled binary. Omit `-SdkDir` to package an existing build.
+The script produces `dist/TraderAnywhere-0.1.0.zip` containing `TraderAnywhere.u`, `install.cmd`, `install.ps1`, and `LICENSE`, and checks that the archived package matches the compiled binary. Omit `-SdkDir` to package an existing build.
 
 ### Local testing
 
@@ -169,6 +169,10 @@ Finish a wave, check all trader pods, test the interaction key and hold-to-auto-
 The mutator uses a server-side controller, replicated trader phase state, and per-player interaction triggers to make the standard trader UI available during trader time. It does not directly modify weapon damage, prices, or XP.
 
 The 0.1.0 gameplay package was built and tested locally and on a dedicated server. The basic server launcher is separate from the gameplay package.
+
+## 📄 License
+
+Distributed under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
