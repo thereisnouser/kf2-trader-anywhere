@@ -1,11 +1,15 @@
 [CmdletBinding()]
 param(
     [string]$ServerDir,
-    [string]$PackagePath = (Join-Path $PSScriptRoot 'TraderAnywhere.u')
+    [string]$PackagePath
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
+
+if ([string]::IsNullOrWhiteSpace($PackagePath)) {
+    $PackagePath = Join-Path $PSScriptRoot 'TraderAnywhere.u'
+}
 
 if (-not (Test-Path -LiteralPath $PackagePath -PathType Leaf)) {
     throw 'TraderAnywhere.u not found. Extract the complete release ZIP or pass -PackagePath.'
