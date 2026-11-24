@@ -1,8 +1,8 @@
-// W4 All Traders: точка входа для обычного запуска и Safe Mut Loader.
-// Вся логика находится в W4AT_Server: SML вызывает только совместимые хуки.
-class W4AT_Mutator extends KFMutator;
+// Trader Anywhere: точка входа для обычного запуска и Safe Mut Loader.
+// Вся логика находится в TA_Server: SML вызывает только совместимые хуки.
+class TA_Mutator extends KFMutator;
 
-var private W4AT_Server Server;
+var private TA_Server Server;
 
 public simulated function bool SafeDestroy()
 {
@@ -19,7 +19,7 @@ public event PreBeginPlay()
     }
 
     // Один контроллер даже при повторном добавлении мутатора.
-    foreach WorldInfo.DynamicActors(class'W4AT_Server', Server)
+    foreach WorldInfo.DynamicActors(class'TA_Server', Server)
     {
         if (!Server.bDeleteMe)
         {
@@ -30,12 +30,12 @@ public event PreBeginPlay()
 
     if (Server == None)
     {
-        Server = WorldInfo.Spawn(class'W4AT_Server');
+        Server = WorldInfo.Spawn(class'TA_Server');
     }
 
     if (Server == None)
     {
-        `Log("W4AllTraders: unable to spawn server controller");
+        `Log("TraderAnywhere: unable to spawn server controller");
         SafeDestroy();
     }
 }
@@ -49,7 +49,7 @@ public function AddMutator(Mutator Mut)
 
     if (Mut.Class == Class)
     {
-        W4AT_Mutator(Mut).SafeDestroy();
+        TA_Mutator(Mut).SafeDestroy();
     }
     else
     {
@@ -63,10 +63,10 @@ static function string GetLocalString(optional int Switch,
     optional PlayerReplicationInfo RelatedPRI_1,
     optional PlayerReplicationInfo RelatedPRI_2)
 {
-    return string(class'W4AT_Server');
+    return string(class'TA_Server');
 }
 
 defaultproperties
 {
-    GroupNames(0)="W4AllTraders"
+    GroupNames(0)="TraderAnywhere"
 }

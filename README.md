@@ -23,22 +23,22 @@ You can also approach any enabled trader pod and interact with it normally. The 
 Build the package from source using the instructions below.
 
 1. Back up your server configuration and stop the server instance you intend to modify.
-2. Copy `W4AllTraders.u` into the server's `KFGame/BrewedPC/` directory.
+2. Copy `TraderAnywhere.u` into the server's `KFGame/BrewedPC/` directory.
 3. Add the mutator to your Survival map URL:
 
 ```text
-?Mutator=W4AllTraders.W4AT_Mutator
+?Mutator=TraderAnywhere.TA_Mutator
 ```
 
-If the URL already contains `?Mutator=`, append `W4AllTraders.W4AT_Mutator` to the existing comma-separated list. Ensure connecting clients can receive the package through your server's mod distribution setup.
+If the URL already contains `?Mutator=`, append `TraderAnywhere.TA_Mutator` to the existing comma-separated list. Ensure connecting clients can receive the package through your server's mod distribution setup.
 
-Start the server and check its log for the `W4AllTraders` initialization message. To uninstall, remove the mutator from the launch configuration and restart the instance.
+Start the server and check its log for the `TraderAnywhere` initialization message. To uninstall, remove the mutator from the launch configuration and restart the instance.
 
 Trader Anywhere is intended for modded Survival servers. It is not officially whitelisted by Tripwire; standard mutator loading may mark a server Unranked and affect progression.
 
 ## 🛠️ Development
 
-Trader Anywhere is an **UnrealScript** mutator for Killing Floor 2. Its internal package and class names retain the original `W4AllTraders` development naming.
+Trader Anywhere is an **UnrealScript** mutator for Killing Floor 2.
 
 ### Requirements
 
@@ -55,14 +55,14 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 `
   -SdkDir '<Killing Floor 2 SDK directory>' -Brew
 ```
 
-The script registers the package in the SDK configuration, compiles its sources, and brews `dist/BrewedPC/Script/W4AllTraders.u`. Omit `-Brew` to compile without brewing. It does not install files on a dedicated server.
+The script registers the package in the SDK configuration, compiles its sources, and brews `dist/BrewedPC/Script/TraderAnywhere.u`. Omit `-Brew` to compile without brewing. It does not install files on a dedicated server.
 
 ### Local testing
 
 Launch the game with `-useunpublished -log` and run the following command in the game console:
 
 ```text
-open KF-Spillway?Game=KFGameContent.KFGameInfo_Survival?Difficulty=0?GameLength=1?Mutator=W4AllTraders.W4AT_Mutator
+open KF-Spillway?Game=KFGameContent.KFGameInfo_Survival?Difficulty=0?GameLength=1?Mutator=TraderAnywhere.TA_Mutator
 ```
 
 Finish a wave, check all trader pods, test the interaction key and hold-to-auto-buy, then verify that remote trading stops when combat resumes.

@@ -1,6 +1,6 @@
-// W4 All Traders - replicated phase state.
+// Trader Anywhere - replicated phase state.
 // Each client animates and enables its own map trader triggers.
-class W4AT_State extends ReplicationInfo;
+class TA_State extends ReplicationInfo;
 
 var repnotify bool bAllTradersOpen;
 
@@ -30,7 +30,7 @@ function SetAllTradersOpen(bool bNewValue)
     bForceNetUpdate = true;
     ReconcileTraders();
 
-    `Log("W4AllTraders: all pods" @ (bAllTradersOpen ? "open" : "closed"));
+    `Log("TraderAnywhere: all pods" @ (bAllTradersOpen ? "open" : "closed"));
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -62,7 +62,7 @@ simulated function ReconcileTraders()
     foreach WorldInfo.AllActors(class'KFTraderTrigger', Trader)
     {
         // Не считаем невидимые персональные триггеры кабинами карты.
-        if (W4AT_UseTrigger(Trader) != None)
+        if (TA_UseTrigger(Trader) != None)
         {
             continue;
         }

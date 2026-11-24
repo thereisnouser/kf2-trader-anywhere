@@ -1,12 +1,12 @@
 // Серверная логика открывания всех кабин и удалённого взаимодействия.
 // Отдельный Info нужен для совместимости с Safe Mut Loader.
-class W4AT_Server extends Info;
+class TA_Server extends Info;
 
-var W4AT_State TraderState;
+var TA_State TraderState;
 
 public event PostBeginPlay()
 {
-    local W4AT_Server OtherServer;
+    local TA_Server OtherServer;
 
     Super.PostBeginPlay();
 
@@ -16,7 +16,7 @@ public event PostBeginPlay()
     }
 
     // Не запускаем два независимых таймера, если объект создан повторно.
-    foreach WorldInfo.DynamicActors(class'W4AT_Server', OtherServer)
+    foreach WorldInfo.DynamicActors(class'TA_Server', OtherServer)
     {
         if (OtherServer != Self && !OtherServer.bDeleteMe)
         {
@@ -25,17 +25,17 @@ public event PostBeginPlay()
         }
     }
 
-    TraderState = Spawn(class'W4AT_State');
+    TraderState = Spawn(class'TA_State');
     if (TraderState == None)
     {
-        `Log("W4AllTraders: unable to spawn replicated trader state");
+        `Log("TraderAnywhere: unable to spawn replicated trader state");
         Destroy();
         return;
     }
 
     SetTimer(0.25, true, nameof(UpdateTraderState));
     UpdateTraderState();
-    `Log("W4AllTraders: v0.1.0 runtime initialized");
+    `Log("TraderAnywhere: v0.1.0 runtime initialized");
 }
 
 function UpdateTraderState()
@@ -61,7 +61,7 @@ function UpdateTraderState()
 function EnsureRemoteUseTriggers()
 {
     local KFPlayerController KFPC;
-    local W4AT_UseTrigger UseTrigger;
+    local TA_UseTrigger UseTrigger;
     local bool bFound;
 
     foreach WorldInfo.AllControllers(class'KFPlayerController', KFPC)
@@ -72,7 +72,7 @@ function EnsureRemoteUseTriggers()
         }
 
         bFound = false;
-        foreach WorldInfo.AllActors(class'W4AT_UseTrigger', UseTrigger)
+        foreach WorldInfo.AllActors(class'TA_UseTrigger', UseTrigger)
         {
             if (!UseTrigger.bDeleteMe && UseTrigger.TrackedPawn == KFPC.Pawn)
             {
@@ -83,7 +83,7 @@ function EnsureRemoteUseTriggers()
 
         if (!bFound)
         {
-            UseTrigger = Spawn(class'W4AT_UseTrigger', KFPC,, KFPC.Pawn.Location);
+            UseTrigger = Spawn(class'TA_UseTrigger', KFPC,, KFPC.Pawn.Location);
             if (UseTrigger != None)
             {
                 UseTrigger.InitFor(KFPC);

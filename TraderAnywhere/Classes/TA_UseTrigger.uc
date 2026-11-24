@@ -1,5 +1,5 @@
 // Невидимый личный торговец: штатная подсказка и удержание E для автозакупки.
-class W4AT_UseTrigger extends KFTraderTrigger;
+class TA_UseTrigger extends KFTraderTrigger;
 
 var KFPlayerController OwnerController;
 var repnotify Pawn TrackedPawn;
