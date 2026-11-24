@@ -82,9 +82,83 @@ else {
     Write-Host "Installed: $destination" -ForegroundColor Green
 }
 
+# Create a separate basic launcher without touching any existing server scripts.
+$launcherText = @'
+@echo off
+setlocal
+pushd "%~dp0" || exit /b 1
+if not exist "Binaries\Win64\KFServer.exe" (
+    echo KFServer.exe not found. Keep this launcher in your KF2 server folder.
+    pause
+    popd
+    exit /b 1
+)
+if not exist "KFGame\BrewedPC\TraderAnywhere.u" (
+    echo Trader Anywhere is not installed. Run install.cmd from the release ZIP first.
+    pause
+    popd
+    exit /b 1
+)
+echo Trader Anywhere - basic Survival server on Spillway
+echo Uses the default launch settings, not your existing custom launcher.
+echo Stop any other KF2 servers using the same ports before continuing.
+choice /C YN /N /M "Start the server now? [Y/N] "
+if not "%ERRORLEVEL%"=="1" (
+    popd
+    exit /b 0
+)
+".\Binaries\Win64\KFServer.exe" "KF-Spillway?Game=KFGameContent.KFGameInfo_Survival?Mutator=TraderAnywhere.TA_Mutator"
+set "result=%ERRORLEVEL%"
+if not "%result%"=="0" (
+    echo Server exited with error %result%. Check KFGame\Logs.
+    pause
+)
+popd
+exit /b %result%
+'@
+$launcherText = ($launcherText -replace '\r?\n', "`r`n") + "`r`n"
+$launcherPath = $null
+
+try {
+    foreach ($name in @('StartServer.cmd', 'StartServer-TraderAnywhere.cmd')) {
+        $candidate = Join-Path $root.FullName $name
+        if (Test-Path -LiteralPath $candidate) {
+            if ((Test-Path -LiteralPath $candidate -PathType Leaf) -and
+                [System.IO.File]::ReadAllText($candidate) -ceq $launcherText) {
+                $launcherPath = $candidate
+                break
+            }
+            continue
+        }
+
+        # CreateNew prevents overwriting even if a file appears after the check.
+        $stream = [System.IO.File]::Open($candidate, [System.IO.FileMode]::CreateNew, [System.IO.FileAccess]::Write, [System.IO.FileShare]::None)
+        try {
+            $bytes = [System.Text.Encoding]::ASCII.GetBytes($launcherText)
+            $stream.Write($bytes, 0, $bytes.Length)
+        }
+        finally {
+            $stream.Dispose()
+        }
+        $launcherPath = $candidate
+        break
+    }
+    if ($launcherPath) {
+        Write-Host ''
+        Write-Host "Basic server launcher: $launcherPath" -ForegroundColor Green
+        Write-Host 'Open your server folder and double-click this file to start a basic Survival server.'
+    }
+    else {
+        Write-Warning 'Both launcher filenames are already in use. Existing files were preserved. Use your existing launcher as described below.'
+    }
+}
+catch {
+    Write-Warning "The mod is installed, but the optional basic launcher could not be created: $($_.Exception.Message)"
+}
+
 Write-Host ''
-Write-Host 'Add this to your Survival map URL:'
+Write-Host 'To keep your existing custom server settings, add this to your normal launch URL:'
 Write-Host '  ?Mutator=TraderAnywhere.TA_Mutator' -ForegroundColor Cyan
 Write-Host 'Already using mutators? Append ,TraderAnywhere.TA_Mutator to the existing Mutator list instead.'
-Write-Host 'Start the server normally. No launch configuration was changed.'
+Write-Host 'Existing launch scripts and server configuration were not changed.'
 Write-Host 'This is an unofficial mod for modded servers; Ranked progression is not supported.'

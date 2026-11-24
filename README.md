@@ -51,25 +51,21 @@ The location and launcher filename may differ. If the server is not running, ope
 3. Right-click the downloaded ZIP, choose **Extract All**, then open the extracted folder.
 4. Double-click **install.cmd**. Paste your server folder path from step 1 and press Enter.
 
-When you see `Installed:` or `Trader Anywhere is already installed`, the mod is in the correct folder. You do not need to copy files yourself or open the Config folder.
+When you see `Installed:` or `Trader Anywhere is already installed`, the mod is in the correct folder. The installer also creates a ready-to-use basic server launcher in that folder and prints its location. You do not need to copy files yourself or open the Config folder. If the optional launcher cannot be created, the installer displays a warning and the manual activation instructions still apply.
 
 ### 3. Start the server with the mod enabled
 
 Choose the option that matches how you want to launch your server.
 
-#### Option A — Quick test without editing files
+#### Option A — Start with one double-click (recommended for a basic server)
 
-Use this if you simply want to try the mod on a single local dedicated server with the normal server configuration and no custom launch options.
+1. Open the dedicated server folder you selected in the installer.
+2. Double-click **StartServer.cmd** (or **StartServer-TraderAnywhere.cmd**, if the first filename was already in use). The installer displays the exact file path.
+3. Press **Y** to start the server. Leave its window open while playing.
 
-1. Open your server folder in File Explorer.
-2. Click the address bar, type `cmd`, and press Enter. A Command Prompt opens in that folder.
-3. Copy the entire line below, paste it into Command Prompt and press Enter:
+That's it. No configuration editing or commands are needed. This launcher starts a basic Survival server on Spillway with Trader Anywhere enabled. It uses the server's normal configuration and default launch options; it does not copy custom ports, other mutators, or options from your usual launcher. Stop other servers using the same ports before starting it.
 
-```bat
-.\Binaries\Win64\KFServer.exe "KF-Spillway?Game=KFGameContent.KFGameInfo_Survival?Mutator=TraderAnywhere.TA_Mutator"
-```
-
-This starts a Survival server on Spillway with Trader Anywhere enabled. Leave the server window open while playing. This is a basic test launcher, not a replacement for an existing custom setup: it does not include your custom ports, other mutators or special launch options.
+Your existing startup files are never overwritten. If both filenames are already occupied by other files, use Option B.
 
 #### Option B — Keep your existing server settings
 
@@ -122,7 +118,7 @@ If it does not, check that `TraderAnywhere.u` exists in your server's `KFGame\Br
 
 ### Uninstall
 
-Stop the server, remove only `TraderAnywhere.TA_Mutator` from the launcher (remove the whole `?Mutator=` option if it was the only mutator), then restart the server. You can leave the unused package in place or delete `KFGame\BrewedPC\TraderAnywhere.u` once no server uses it.
+Stop the server, remove only `TraderAnywhere.TA_Mutator` from the launcher (remove the whole `?Mutator=` option if it was the only mutator), then restart the server. You can leave the unused package in place or delete `KFGame\BrewedPC\TraderAnywhere.u` once no server uses it. You may also delete the basic launcher created by the installer (do not delete your original server launcher).
 
 Trader Anywhere is intended for modded/Unranked Survival servers and is not officially whitelisted by Tripwire. Standard mutator loading may disable Ranked progression.
 
@@ -172,7 +168,7 @@ Finish a wave, check all trader pods, test the interaction key and hold-to-auto-
 
 The mutator uses a server-side controller, replicated trader phase state, and per-player interaction triggers to make the standard trader UI available during trader time. It does not directly modify weapon damage, prices, or XP.
 
-The development build was tested locally and on a dedicated server, including other connected players and a map transition. The public 0.1.0 source revision still needs a fresh SDK build and full multiplayer regression testing.
+The 0.1.0 gameplay package was built and tested locally and on a dedicated server. The basic server launcher is separate from the gameplay package.
 
 ## 🔗 Links
 

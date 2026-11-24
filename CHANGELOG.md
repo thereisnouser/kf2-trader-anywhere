@@ -11,7 +11,7 @@
 - Include a PowerShell script for compiling and brewing the UnrealScript package.
 - Add a double-click Windows installer with server-directory validation, backups and file verification.
 - Add a release ZIP packager and simplify installation instructions.
+- Generate a ready-to-use basic server launcher without overwriting existing launch scripts.
 
 ### Notes
 - The mod is not officially whitelisted by Tripwire.
-- The public source revision requires a fresh SDK build before distributing a binary.
