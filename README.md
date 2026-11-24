@@ -18,23 +18,26 @@ You can also approach any enabled trader pod and interact with it normally. The 
 
 ## 📦 Installation
 
-### Dedicated server
+### Dedicated server (Windows)
 
-Build the package from source using the instructions below.
-
-1. Back up your server configuration and stop the server instance you intend to modify.
-2. Copy `TraderAnywhere.u` into the server's `KFGame/BrewedPC/` directory.
-3. Add the mutator to your Survival map URL:
+1. Stop the KF2 server instances using the installation you want to modify.
+2. Download `TraderAnywhere-0.1.0.zip` from [GitHub Releases](https://github.com/thereisnouser/kf2-trader-anywhere/releases) (once the first binary release is available) and extract it.
+3. Double-click **install.cmd**, then enter your dedicated server folder (the folder containing `KFGame` and `Binaries`).
+4. Add the following to your server's Survival map URL, then start the server normally:
 
 ```text
 ?Mutator=TraderAnywhere.TA_Mutator
 ```
 
-If the URL already contains `?Mutator=`, append `TraderAnywhere.TA_Mutator` to the existing comma-separated list. Ensure connecting clients can receive the package through your server's mod distribution setup.
+Already using mutators? Append `,TraderAnywhere.TA_Mutator` to the existing `?Mutator=` list instead.
 
-Start the server and check its log for the `TraderAnywhere` initialization message. To uninstall, remove the mutator from the launch configuration and restart the instance.
+The installer copies the package, backs up a previous version if necessary, and verifies the installed file. It does not edit your launch script or restart your server. Your normal mod distribution setup must allow clients to receive the package.
 
-Trader Anywhere is intended for modded Survival servers. It is not officially whitelisted by Tripwire; standard mutator loading may mark a server Unranked and affect progression.
+### Manual installation
+
+Copy `TraderAnywhere.u` into `KFGame/BrewedPC/` inside the dedicated server folder and add the same mutator parameter above. To uninstall, remove the mutator from your launch configuration and restart the server.
+
+Trader Anywhere is not officially whitelisted by Tripwire and is intended for modded/Unranked Survival servers. Standard mutator loading may disable Ranked progression.
 
 ## 🛠️ Development
 
@@ -56,6 +59,17 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 `
 ```
 
 The script registers the package in the SDK configuration, compiles its sources, and brews `dist/BrewedPC/Script/TraderAnywhere.u`. Omit `-Brew` to compile without brewing. It does not install files on a dedicated server.
+
+### Create a release ZIP
+
+Build and package the mod in one command:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\package.ps1 `
+  -SdkDir '<Killing Floor 2 SDK directory>'
+```
+
+The script produces `dist/TraderAnywhere-0.1.0.zip` containing `TraderAnywhere.u`, `install.cmd`, and `install.ps1`, and checks that the archived package matches the compiled binary. Omit `-SdkDir` to package an existing build.
 
 ### Local testing
 
