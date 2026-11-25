@@ -1,5 +1,7 @@
 # KF2 Trader Anywhere
 
+<img src="icon.png" alt="Trader Anywhere icon" width="128" />
+
 **Access the trader from anywhere during the trader phase in Killing Floor 2.** Trader Anywhere opens all enabled trader pods and lets players use the game's normal interaction key without having to run to a pod.
 
 ## ✨ Features
@@ -47,7 +49,7 @@ The location and launcher filename may differ. If the server is not running, ope
 ### 2. Install the mod
 
 1. Stop your server. If several servers share the same installation folder, stop all of them first.
-2. Open [GitHub Releases](https://github.com/thereisnouser/kf2-trader-anywhere/releases) and download **TraderAnywhere-0.1.0.zip** when the binary release is available. Do not download `Source code (zip)`.
+2. Download **[TraderAnywhere-0.1.0.zip](https://github.com/thereisnouser/kf2-trader-anywhere/releases/download/v0.1.0/TraderAnywhere-0.1.0.zip)** from GitHub. Do not download `Source code (zip)`.
 3. Right-click the downloaded ZIP, choose **Extract All**, then open the extracted folder.
 4. Double-click **install.cmd**. Paste your server folder path from step 1 and press Enter.
 
@@ -176,7 +178,7 @@ Distributed under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
-[Report an issue](https://github.com/thereisnouser/kf2-trader-anywhere/issues) · [Changelog](CHANGELOG.md)
+[Releases](https://github.com/thereisnouser/kf2-trader-anywhere/releases) · [Report an issue](https://github.com/thereisnouser/kf2-trader-anywhere/issues) · [Changelog](CHANGELOG.md)
 
 ---
 
