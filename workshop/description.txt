@@ -1,0 +1,27 @@
+[h1]Trader Anywhere[/h1]
+Access the trader from anywhere during the trader phase in Killing Floor 2. All enabled trader pods open, and your normal Use key opens the standard shop without having to run to a pod.
+
+[h1]Features[/h1]
+[list]
+[*] All enabled trader pods open during trader time.
+[*] Press E (default Use key) to open the trader from anywhere.
+[*] Hold Use for native auto-buy.
+[*] Keep normal interactions with nearby usable objects.
+[*] Remote trading is disabled during combat.
+[/list]
+
+[h1]Installation[/h1]
+For Windows dedicated servers, use the ready-to-use ZIP and beginner-friendly installation guide on GitHub. It includes an installer and a basic server launcher. Steam subscription downloads the Workshop content but does not automatically enable the mutator on a dedicated server.
+
+Mutator: TraderAnywhere.TA_Mutator
+
+[url=https://github.com/thereisnouser/kf2-trader-anywhere/releases/tag/v0.1.0]Download v0.1.0[/url]
+[url=https://github.com/thereisnouser/kf2-trader-anywhere#-installation]Installation guide[/url]
+
+[h1]Compatibility[/h1]
+Intended for modded/Unranked Survival servers. Not officially whitelisted by Tripwire. No Ranked progression guarantee. No external mutator loader is required for standard unranked use.
+
+[h1]Source and license[/h1]
+[url=https://github.com/thereisnouser/kf2-trader-anywhere]GitHub repository[/url] | [url=https://github.com/thereisnouser/kf2-trader-anywhere/blob/main/LICENSE]MIT License[/url]
+
+Made by thereisnouser

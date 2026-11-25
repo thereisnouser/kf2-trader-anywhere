@@ -156,6 +156,16 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\package.ps1 `
 
 The script produces `dist/TraderAnywhere-0.1.0.zip` containing `TraderAnywhere.u`, `install.cmd`, `install.ps1`, and `LICENSE`, and checks that the archived package matches the compiled binary. Omit `-SdkDir` to package an existing build.
 
+### Steam Workshop (maintainers)
+
+Use the existing brewed package from the release build. With Steam and the KF2 SDK installed, prepare a clean Workshop upload without publishing:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\publish-workshop.ps1 -SdkDir '<Killing Floor 2 SDK directory>'
+```
+
+The script stages only this mod, its license, preview and upload metadata under `dist/`. Review the generated files. For the first publication only, rerun the command with `-Upload`, sign in to Steam and confirm the prompt. Verify the result in your Steam Workshop items and save the item ID. Do not repeat first publication to update an existing item.
+
 ### Local testing
 
 Launch the game with `-useunpublished -log` and run the following command in the game console:
