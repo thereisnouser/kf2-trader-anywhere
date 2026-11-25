@@ -8,6 +8,13 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# First publication completed. Keep the original upload code for reference,
+# but refuse new uploads until an update-by-ID workflow has been verified.
+$workshopId = '3845509709'
+if ($Upload) {
+    throw "Trader Anywhere already has Workshop item $workshopId. First publication is disabled. Updating this item is not yet supported."
+}
+
 $binary = Join-Path $PSScriptRoot 'dist\BrewedPC\Script\TraderAnywhere.u'
 $preview = Join-Path $PSScriptRoot 'icon.png'
 $descriptionFile = Join-Path $PSScriptRoot 'workshop\description.txt'
@@ -74,7 +81,7 @@ Write-Host "Workshop staging: $stage"
 Write-Host "Metadata: $metadataFile"
 Write-Host 'Package: TraderAnywhere.u | Category: Mutators | Version: 0.1.0'
 if (-not $Upload) {
-    Write-Host 'Preparation only. Nothing was uploaded. Review the staging folder before using -Upload.'
+    Write-Host "Preparation only. Nothing was uploaded. Existing Workshop item: $workshopId."
     return
 }
 

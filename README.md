@@ -20,6 +20,8 @@ You can also approach any enabled trader pod and interact with it normally. The 
 
 ## 📦 Installation
 
+[Steam Workshop]( https://steamcommunity.com/sharedfiles/filedetails/?id=3845509709) (item ID: `3845509709`). Subscribing downloads the Workshop content, but does not by itself enable the mutator on a dedicated server. The Windows ZIP installer below is the tested installation method.
+
 These instructions are for a **Windows KF2 dedicated server that is already installed**. You do not need programming knowledge, the KF2 SDK, or any `.ini` configuration changes.
 
 ### 1. Find your server folder
@@ -164,7 +166,7 @@ Use the existing brewed package from the release build. With Steam and the KF2 S
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\publish-workshop.ps1 -SdkDir '<Killing Floor 2 SDK directory>'
 ```
 
-The script stages only this mod, its license, preview and upload metadata under `dist/`. Review the generated files. For the first publication only, rerun the command with `-Upload`, sign in to Steam and confirm the prompt. Verify the result in your Steam Workshop items and save the item ID. Do not repeat first publication to update an existing item.
+The script stages only this mod, its license, preview and upload metadata under `dist/`. The first publication succeeded for [Workshop item 3845509709](https://steamcommunity.com/sharedfiles/filedetails/?id=3845509709). The `-Upload` option is now blocked to prevent accidental duplicate items. Updating the existing Workshop item is not yet supported by this script. Do not remove the guard or repeat first publication.
 
 ### Local testing
 
@@ -188,7 +190,7 @@ Distributed under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
-[Releases](https://github.com/thereisnouser/kf2-trader-anywhere/releases) · [Report an issue](https://github.com/thereisnouser/kf2-trader-anywhere/issues) · [Changelog](CHANGELOG.md)
+[Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3845509709) · [Releases](https://github.com/thereisnouser/kf2-trader-anywhere/releases) · [Report an issue](https://github.com/thereisnouser/kf2-trader-anywhere/issues) · [Changelog](CHANGELOG.md)
 
 ---
 
